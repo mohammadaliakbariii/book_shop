@@ -2,9 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 class Category(models.Model):
-    name = models.CharField(max_length=150)
-    slug = models.SlugField(max_length=100,unique=True)
-
+    name = models.CharField(max_length=150,unique=True)
     class Meta:
         verbose_name_plural = "categories"
 
@@ -18,7 +16,6 @@ class Product(models.Model):
     author = models.CharField(max_length=100,default='admin')
     image = models.ImageField(upload_to='images/')
     description = models.TextField(blank=True)
-    slug = models.SlugField(max_length=100)
     price = models.DecimalField(max_digits=4,decimal_places=2)
     is_stock = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
