@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'store/css/detail.css' %}">
+{% block content %}
+    <div class="row">
+    <div class="col-12 text-center">
+        <img class="image border shadow" style="margin-top: 40px;width: 400px;height: 500px" src="{{ product.image.url }}" alt="{{ product.title }}">
+    </div>
+    <div class="col-12 " style="margin-top: 40px;direction: rtl">
+         <h3>نام کالا:{{ product.title }}</h3>
+        <h3>توضیحات:{{ product.description }}</h3>
+        <h3>موجود:
+        {% if product.is_stock %}هست
+        {% else %}
+            ناموجود
+        {% endif %}</h3>
+    <h3>قیمت:{{ product.price }}</h3>
+        <input name="count" type="number" step="1" min="0"  placeholder="تعداد"><br><br><br>
+        <button type="submit" class="btn btn-dark text-white">اضافه کردن به سبد خرید</button>
+
+    </div>
+    </div>
+{% endblock %}
