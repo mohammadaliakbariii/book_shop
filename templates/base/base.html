@@ -16,11 +16,11 @@
     <div class="p-3 bg-dark text-white">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use href="#bootstrap"></use></svg>
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 text-primary active">صفحه اصلی</a></li>
+          <li><a href="{% url 'store:all_products' %}" class="nav-link px-2 text-primary active">صفحه اصلی</a></li>
             <li><button type="button" class="btn text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: 1px">دسته بندی</button>
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -30,7 +30,7 @@
          </div>
           <div class="modal-body text-center">
               {% for category in categories %}
-                  <a href="#" >{{ category.name }}</a><br>
+                  <a href="{% url 'store:category_products' category.id %}" >{{ category.name }}</a><br>
               {% endfor %}
           </div>
         </div>

@@ -11,3 +11,10 @@ def all_products(request):
     })
 
 
+def category_products(request,category_id):
+    products = Product.objects.filter(category__id = category_id)
+    categories = Category.objects.all()
+    return render(request,'store/home.html',context={
+        "products":products,
+        'categories':categories,
+    })

@@ -16,7 +16,7 @@ class Product(models.Model):
     author = models.CharField(max_length=100,default='admin')
     image = models.ImageField(upload_to='images/')
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=4,decimal_places=2)
+    price = models.DecimalField(max_digits=12,decimal_places=2)
     is_stock = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
