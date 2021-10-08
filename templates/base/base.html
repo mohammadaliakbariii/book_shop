@@ -44,7 +44,12 @@
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
           <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
         </form>
-
+    {% if user.is_authenticated %}
+    {{ user.full_name }}
+        <div class="col-12">
+        <button class="btn btn-dark text-white"><a href="{% url 'accounts:logout' %}">logout</a></button>
+        </div>
+    {% else %}
         <div class="text-end">
           <button type="button" class="btn btn-outline-light me-2 text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="margin-top: 1px">ورود</button>
                 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -63,6 +68,7 @@
 
           <button type="button" class="btn btn-outline-light me-2"><a href="{% url 'accounts:sign_up' %}">ثبت نام</a></button>
         </div>
+    {% endif %}
       </div>
         <a type="button" class="btn btn-primary" role="button" href="{% url 'order:basket' %}">
             <div class="d-inline-flex">1</div>

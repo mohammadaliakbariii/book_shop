@@ -5,6 +5,16 @@
     <title>Title</title>
 </head>
 <body>
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+<div >
+    <form action="{% url 'accounts:login_customer' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-danger"  type="submit">logIn</button>
+    </form>
+</div>
 
 </body>
 </html>
