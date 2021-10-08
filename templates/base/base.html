@@ -46,9 +46,22 @@
         </form>
 
         <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2">ورود</button>
+          <button type="button" class="btn btn-outline-light me-2 text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="margin-top: 1px">ورود</button>
+                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+      <div class="modal-content bg-dark">
+       <div class="modal-header">
+           <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+          <div class="modal-body text-center">
+              <a href="{% url 'accounts:login_customer' %}">مشتری</a><br>
+              <a href="{% url 'accounts:login_staff' %}">کارمند</a>
+          </div>
+        </div>
+    </div>
+    </div>
 
-          <button type="button" class="btn btn-outline-light me-2">ثبت نام</button>
+          <button type="button" class="btn btn-outline-light me-2"><a href="{% url 'accounts:sign_up' %}">ثبت نام</a></button>
         </div>
       </div>
         <a type="button" class="btn btn-primary" role="button" href="{% url 'order:basket' %}">
