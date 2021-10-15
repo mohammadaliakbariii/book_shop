@@ -36,7 +36,7 @@ def login_customer(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             user = authenticate(username=email, password=password)
-            if user is not None:
+            if user is not None and user.is_staff==False:
                 login(request, user)
                 message = f'welcome dear {user.full_name}'
                 if 'next' in request.GET:
@@ -59,7 +59,7 @@ def login_staff(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             user = authenticate(username=email, password=password)
-            if user is not None:
+            if user is not None and user.is_staff==True:
                 login(request, user)
                 message = f'welcome dear {user.full_name}'
                 if 'next' in request.GET:
@@ -67,7 +67,7 @@ def login_staff(request):
                 return redirect('store:all_products')
             else:
                 message = 'username or password is wrong!!!please try again'
-    return render(request, 'accounts/login_staff.html.html', context={
+    return render(request, 'accounts/login_staff.html', context={
         'form': form,
         'message': message
     })

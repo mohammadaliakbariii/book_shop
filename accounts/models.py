@@ -1,11 +1,11 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, Group
 
 
 # Create your models here.
 class UserManager(BaseUserManager):
-    def create_user(self, email, full_name=None,password=None, is_active=True, is_staff=False, is_admin=False):
+    def create_user(self, email, full_name=None, password=None):
         if not email:
             raise ValueError("please enter an email")
         if not password:
@@ -13,42 +13,51 @@ class UserManager(BaseUserManager):
 
         user_obj = self.model(
             email=self.normalize_email(email)
+
         )
-        user_obj.set_password(password)
         user_obj.full_name = full_name
-        user_obj.admin = is_admin
-        user_obj.staff = is_staff
-        user_obj.active = is_active
-        user_obj.save()
+        user_obj.set_password(password)
+        user_obj.save(using=self._db)
         return user_obj
 
-    def create_staffuser(self,email, full_name=None, password=None):
+    def create_staffuser(self,email, full_name=None, password=None,):
         user = self.create_user(
-            email,
+            email = email,
             full_name=full_name,
             password=password,
-            is_staff=True,
         )
+        user.is_admin = False
+        user.is_staff = True
+        user.is_superuser = False
+        # group = Group.objects.get(name='staff')
+        # user.groups.add(group)
+        my_group = Group.objects.get(name='staff')
+        my_group.user_set.add(user)
+        user.save(using=self._db)
         return user
 
-    def create_superuser(self, full_name,email, password=None):
+    def create_superuser(self,email,full_name,password=None):
         user = self.create_user(
-            email,
-            full_name=full_name,
-            password=password,
-            is_staff= True,
-            is_admin=True,
+            email= email,
+            full_name= full_name,
+            password= password
         )
+        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
         return user
 
 
 class User(AbstractBaseUser):
     email = models.EmailField(max_length=100, unique=True)
     full_name = models.CharField(max_length=100, blank=True, null=True)
-    active = models.BooleanField(default=True)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    staff = models.BooleanField(default=False)
-    admin = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(auto_now=True,)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name']
     objects = UserManager()
@@ -68,22 +77,13 @@ class User(AbstractBaseUser):
     def has_perm(self, perm, obj=None):
         # "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
-        return True
+        return self.is_admin
 
     def has_module_perms(self, app_label):
         # "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
 
-    @property
-    def is_staff(self):
-        return self.staff
-
-    def is_admin(self):
-        return self.admin
-
-    def is_active(self):
-        return self.active
 
 
 class Customer(models.Model):

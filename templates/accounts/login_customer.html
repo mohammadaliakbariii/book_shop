@@ -1,19 +1,26 @@
+{% extends 'base/base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
 </head>
 <body>
+{% block content %}
 {% if message %}
     <p>{{ message }}</p>
 {% endif %}
-<div >
-    <form action="{% url 'accounts:login_customer' %}" method="post">
+    <div class="row">
+<div class="border-dark col-12 center" style="margin-left: 40%;margin-top: 30px">
+    <form action="{% url 'accounts:login_customer' %}" method="post" class="border-dark form ">
     {% csrf_token %}
     {{ form.as_p }}
     <button class="btn btn-danger"  type="submit">logIn</button>
     </form>
+    {% endblock %}
+</div>
 </div>
 
 </body>
