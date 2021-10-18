@@ -6,7 +6,7 @@ from .models import Category,Product
 def all_products(request):
     products = Product.objects.filter(is_active=True)
     categories = Category.objects.all()
-    p = Paginator(products, 6)
+    p = Paginator(products, 2)
     page = request.GET.get('page')
     products_list = p.get_page(page)
     return  render(request,'store/home.html',context={
@@ -18,7 +18,7 @@ def all_products(request):
 def category_products(request,category_id):
     products = Product.objects.filter(category__id = category_id,is_active=True)
     categories = Category.objects.all()
-    p = Paginator(products, 6)
+    p = Paginator(products, 2)
     page = request.GET.get('page')
     products_list = p.get_page(page)
     return render(request,'store/home.html',context={

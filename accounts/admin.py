@@ -1,25 +1,27 @@
-from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from accounts.models import User
-# Register your models here.
+from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth import get_user_model
 
 
-
-class AccountAdmin(UserAdmin):
-    list_display = ("email","full_name","date_joined","last_login","is_superuser","is_admin","is_staff","is_active",)
-    search_fields = ('email',)
-    readonly_fields = ('id','date_joined','last_login',)
-    filter_horizontal = ()
-    list_filter = ()
-    fieldsets = ()
-    ordering = ()
+class CustomUserAdmin(UserAdmin):
+    """Define admin model for custom User model with no username field."""
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name')}),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+                                       'groups', 'user_permissions')}),
+        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+    )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email',"full_name","is_superuser","is_admin","is_staff","is_active", 'password1', 'password2',),
+            'fields': ('email', 'password1', 'password2'),
         }),
     )
+    list_display = ('email', 'first_name', 'last_name', 'is_staff')
+    search_fields = ('email', 'first_name', 'last_name')
+    ordering = ('email',)
 
 
-admin.site.register(User,AccountAdmin)
+admin.site.register(get_user_model(), CustomUserAdmin)

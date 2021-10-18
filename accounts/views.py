@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
-from .models import User
+from .models import CustomUser
 from django.contrib.auth import authenticate,login,logout
 from .forms import LoginForm
 from django.shortcuts import render
@@ -12,14 +12,14 @@ def sign_up(request):
         full_name = request.POST['full_name']
         password=request.POST['pass1']
         password2=request.POST['pass2']
-        if  User.objects.filter(email=email):
+        if  CustomUser.objects.filter(email=email):
             message='this username or email is already exit please choose another please'
             return render(request,'accounts/sign_up.html',context={'message':message})
         if password!=password2:
             message = 'passwords are not match!!!'
             return render(request, 'accounts/sign_up.html', context={'message':message})
 
-        newuser=User.objects.create_user(email=email,full_name = full_name,password=password)
+        newuser=CustomUser.objects.create_user(email=email,full_name = full_name,password=password)
         newuser.full_name = full_name
         newuser.save()
         message='signUp successfully!!!please logIN'
