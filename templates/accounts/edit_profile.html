@@ -14,9 +14,15 @@
         <h2>مشخصات کاربری</h2>
     </div>
     <div class="row border">
-            <a href="{% url 'password_change' %}" style="margin-bottom: 0px">تغییر رمز</a>
+        <a href="{% url 'store:all_products' %}" class="float-right">صفحه اصلی</a>
     </div>
     <div class="row center border">
+             <div class="col-12">
+        <h4>
+            <div class="col-12"><a href="{% url 'password_change' %}">تغییر رمز</a></div>
+        </h4>
+
+        </div>
         <div class="col-12">
         <h4>
             نام ونام خانوادگی:{{ full_name }}
