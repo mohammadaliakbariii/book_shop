@@ -1,9 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
+from django.urls import reverse_lazy
+from django.views import generic
+
 from .models import CustomUser
 from django.contrib.auth import authenticate,login,logout
-from .forms import LoginForm
+from .forms import LoginForm,UserChangeForm
 from django.shortcuts import render
+# from django.contrib.auth.forms import UserChangeForm
 
 # Create your views here.
 def sign_up(request):
@@ -77,3 +82,11 @@ def login_staff(request):
 def logOut(request):
     logout(request)
     return redirect('store:all_products')
+
+def edit_profile(request):
+    full_name =request.user.full_name
+    email = request.user.email
+    return render(request,'accounts/edit_profile.html',context={
+    'full_name':full_name,
+        'email':email,
+    })

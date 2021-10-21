@@ -24,6 +24,7 @@ urlpatterns = [
     path('',include('store.urls',namespace='store')),
     path('basket/',include('order.urls',namespace='order')),
     path('accounts/', include('accounts.urls')),
+    path('accounts/',include('django.contrib.auth.urls'))
 
 ]
 
