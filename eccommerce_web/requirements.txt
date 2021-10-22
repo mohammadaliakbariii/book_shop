@@ -1,5 +1,7 @@
-asgiref==3.4.1
 Django==3.2.7
+django-adminlte3==0.1.6
+django-jet==1.0.8
+groups==0.1
 Pillow==8.3.2
 psycopg2==2.9.1
 python-decouple==3.5
