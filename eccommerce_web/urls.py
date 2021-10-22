@@ -17,15 +17,14 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-
+from accounts.views import logOut
 urlpatterns = [
-    path('grappelli/', include('grappelli.urls')),  # grappelli URLS
     path('admin/', admin.site.urls),
     path('',include('store.urls',namespace='store')),
     path('basket/',include('order.urls',namespace='order')),
     path('accounts/', include('accounts.urls')),
-    path('accounts/',include('django.contrib.auth.urls'))
-
+    path('accounts/',include('django.contrib.auth.urls')),
+    path('logout/',logOut,name='logout'),
 ]
 
 if settings.DEBUG:

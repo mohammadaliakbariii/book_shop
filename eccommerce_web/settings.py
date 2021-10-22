@@ -31,7 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'grappelli',
+    # General use templates & template tags (should appear first)
+    'adminlte3',
+     # Optional: Django admin theme (must be before django.contrib.admin)
+    'adminlte3_theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
     'store',
     'order',
     'accounts',
+
 ]
 
 MIDDLEWARE = [
@@ -134,10 +138,11 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 if not DEBUG:
     STATIC_ROOT = BASE_DIR / 'static'
 else:
-    pass
+
     STATICFILES_DIRS = [
     BASE_DIR / 'static',]
 
