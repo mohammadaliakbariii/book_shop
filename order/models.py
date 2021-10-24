@@ -11,6 +11,7 @@ from store.models import Product
 class Cart(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)
+    adress = models.TextField(default='tehran')
     total = models.FloatField(default=0)
 
 class CartItem(models.Model):
