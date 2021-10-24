@@ -21,6 +21,7 @@ from accounts.views import logOut
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cart/', include('cart.urls', namespace='cart')),
     path('',include('store.urls',namespace='store')),
     path('basket/',include('order.urls',namespace='order')),
     path('accounts/', include('accounts.urls')),

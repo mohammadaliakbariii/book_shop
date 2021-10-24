@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'store',
     'order',
     'accounts',
+    'cart',
 
 ]
 
@@ -150,3 +151,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+CART_SESSION_ID = 'cart'

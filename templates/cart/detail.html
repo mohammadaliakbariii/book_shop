@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}
+    سبدخرید
+{% endblock %}
+{% block content %}
+<h1>سبد خرید</h1>
+<table class="cart">
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+{% for item in cart %}
+    {% with product=item.product %}
+        <tr>
+        <td>
+            <a href="{{ product.get_absolute_url }}">
+                <img src="{{ product.image.url }}" alt="">
+            </a>
+        </td>
+        <td>{{ product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>
+            <form action="{% url 'cart:cart_remove' product.id %}" method="post">
+                <input type="submit" value="remove">
+                {% csrf_token %}
+            </form>
+        </td>
+        <td>
+            <td class="num">Rs{{ item.price }}</td>
+            <td class="num">Rs{{ item.total_price }}</td>
+        </td>
+        </tr>
+    {% endwith %}
+    {% endfor %}
+<tr class="total">
+    <td>total</td>
+    <td colspan="4"></td>
+    <td class="num">Rs{{ cart.get_total_price }}</td>
+</tr>
+</tbody>
+</table>
+    <p class="text-right">
+        <a href="{% url 'store:all_products' %}" class="btn btn-primary">ادامه خرید</a>
+        <a href="#" class="btn btn-primary">پرداخت</a>
+    </p>
+{% endblock %}
